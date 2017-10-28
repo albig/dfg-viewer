@@ -73,6 +73,9 @@ page {
 
       gp-pagegrid = TEXT
       gp-pagegrid.data = GP:tx_dlf|pagegrid
+
+      gp-validate = TEXT
+      gp-validate.data = GP:tx_dfgviewer|validate // GP:set|debug
     }
   }
 }
