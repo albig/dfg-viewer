@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-10-12T13:32:36Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-10-28T10:35:40Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
@@ -48,6 +48,10 @@
 		<trans-unit id="gridpage.preview" approved="yes">
 			<source>Thumbnail Preview</source>
 			<target>Vorschaubilder</target>
+		</trans-unit>
+		<trans-unit id="metadata.type" approved="yes">
+			<source>Document Type</source>
+			<target>Strukturtyp</target>
 		</trans-unit>
 		<trans-unit id="provider.email_provider" approved="yes">
 			<source>Email to data provider</source>
