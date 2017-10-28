@@ -2,7 +2,40 @@
 <div xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
 
 <f:section name="Validator">
-
-<h1>hallo welt </h1>
-
+  <div class="document-view">
+    <div class="validation-block">
+      <f:translate key='metadata.type' extensionName='dfgviewer' />
+      <f:if condition="{isNewspaper} == 'newspaper_anchor'">
+        <f:then>
+        Zeitungen, Anker-Datei
+        </f:then>
+        <f:else>
+          <f:if condition="{isNewspaper} == 'newspaper_year'">
+            <f:then>
+              Zeitungen, Jahrgangs-Anker
+            </f:then>
+            <f:else>
+              <f:if condition="{isNewspaper} == 'newspaper_issue'">
+                <f:then>
+                  Zeitungen, Ausgabe
+                </f:then>
+                <f:else>
+                  <f:if condition="{f:translate(key:metadata.{dv:xpath(xpath:(//mets:structMap[@TYPE=\"LOGICAL\"]/mets:div/@TYPE))},extensionName:'dfgviewer')}">
+                    <f:then>
+                      <f:translate key="metadata.<dv:xpath xpath='(//mets:structMap[@TYPE=\"LOGICAL\"]/mets:div/@TYPE)' />" extensionName='dfgviewer' />
+                    </f:then>
+                    <f:else>
+                      <dv:xpath xpath='(//mets:structMap[@TYPE="LOGICAL"]/mets:div/@TYPE)' />
+                    </f:else>
+                  </f:if>
+                </f:else>
+              </f:if>
+            </f:else>
+          </f:if>
+        </f:else>
+      </f:if>
+    </div>
+  </div>
 </f:section>
+
+</div>
