@@ -3,7 +3,10 @@
 <div xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
 
 	<f:section name="Content">
-		<f:format.raw>{content}</f:format.raw>
+		<f:render section="ControlBar" partial="ControlBar" arguments="{_all}" />
+		<!--TYPO3SEARCH_begin-->
+		<f:render section="PageView" partial="PageView" arguments="{_all}" />
+		<!--TYPO3SEARCH_end-->
 	</f:section>
 
 </div>
