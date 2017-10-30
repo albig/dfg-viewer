@@ -1,0 +1,58 @@
+/*
+ *
+ * Validator
+ * ================================================
+ * Styles for the DFG-Viewer Validator
+ *
+ * Author: Alexander Bigga <alexander.bigga@slub-dresden.de>
+ *
+ */
+
+/* ==============[ general settings for validator ]=============================== */
+.validation-block {
+    background: transparent !important;
+    border: 1px solid grey;
+    padding: 10px;
+    margin: 5px;
+    width: auto !important;
+    position: relative;
+    z-index: 1;
+    .val-ok, .val-warning, .val-error {
+      text-align: left;
+    }
+    .val-ok::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      opacity: .4;
+      background-color: green;
+    }
+    .val-warning::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      opacity: .4;
+      background-color: yellow;
+    }
+    .val-error::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      opacity: .4;
+      background-color: red;
+    }
+}
+
+// EOF
