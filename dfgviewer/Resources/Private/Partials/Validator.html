@@ -3,6 +3,28 @@
 
 <f:section name="Validator">
   <div class="document-view">
+
+    <div class="validation-block">
+      <h3>Schema-Validation</h3>
+      <f:if condition="{dv:schemaValidate(id:'{gp-id}')} == 1">
+        <f:then>
+          <div class="val-od">
+            {gp-id} is a valid METS/MODS-document
+          </div>
+        </f:then>
+        <f:else>
+          <div class="val-error">
+            {gp-id} is NO valid METS/MODS-document
+            <ol>
+            <f:for each="{dv:schemaValidate(id:'{gp-id}')}" as="valError">
+              <li>Line {valError.line}: {valError.message}</li>
+            </f:for>
+            </ol>
+          </div>
+        </f:else>
+      </f:if>
+    </div>
+
     <div class="validation-block">
       <h3>Schema-Validation</h3>
       <f:if condition="{dv:schemaValidate(id:'{gp-id}')} == 1">
