@@ -46,10 +46,10 @@ class XpathViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
      * Return elements found
      *
      * @param string $xpath xpath of elements
-     * @param string $type type of field requested
+     * @param boolean $returnArray return as array
      * @return string
      */
-    public function render($xpath, $field = '')
+    public function render($xpath, $returnArray = NULL)
     {
         $doc = GeneralUtility::makeInstance(\SLUB\Dfgviewer\Helpers\GetDoc::class);
 
@@ -57,12 +57,20 @@ class XpathViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
 
         if (is_array($result)) {
           foreach ($result as $row) {
-            $output .= trim($row) . ' ';
+            if ($returnArray) {
+              $output[] = htmlspecialchars(trim($row));
+            } else {
+              $output .= trim($row) . ' ';
+            }
           }
         } else {
           $output = trim($result);
         }
 
-        return htmlspecialchars(trim($output));
+        if ($returnArray) {
+          return $output;
+        } else {
+          return htmlspecialchars(trim($output));
+        }
     }
 }
