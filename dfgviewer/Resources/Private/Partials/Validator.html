@@ -3,6 +3,28 @@
 
 <f:section name="Validator">
   <div class="document-view">
+
+    <div class="validation-block">
+      <h3>Schema-Validation</h3>
+      <f:if condition="{dv:schemaValidate(id:'{gp-id}')} == 1">
+        <f:then>
+          <div class="val-od">
+            {gp-id} is a valid METS/MODS-document
+          </div>
+        </f:then>
+        <f:else>
+          <div class="val-error">
+            {gp-id} is NO valid METS/MODS-document
+            <ol>
+            <f:for each="{dv:schemaValidate(id:'{gp-id}')}" as="valError">
+              <li>Line {valError.line}: {valError.message}</li>
+            </f:for>
+            </ol>
+          </div>
+        </f:else>
+      </f:if>
+    </div>
+
     <div class="validation-block">
       <f:translate key='metadata.type' extensionName='dfgviewer' />
       <f:if condition="{isNewspaper} == 'newspaper_anchor'">
@@ -22,10 +44,14 @@
                 <f:else>
                   <f:if condition="{f:translate(key:metadata.{dv:xpath(xpath:(//mets:structMap[@TYPE=\"LOGICAL\"]/mets:div/@TYPE))},extensionName:'dfgviewer')}">
                     <f:then>
-                      <f:translate key="metadata.<dv:xpath xpath='(//mets:structMap[@TYPE=\"LOGICAL\"]/mets:div/@TYPE)' />" extensionName='dfgviewer' />
+                      <div class="val-ok">
+                        <f:translate key="metadata.<dv:xpath xpath='(//mets:structMap[@TYPE=\"LOGICAL\"]/mets:div/@TYPE)' />" extensionName='dfgviewer' />
+                      </div>
                     </f:then>
                     <f:else>
-                      <dv:xpath xpath='(//mets:structMap[@TYPE="LOGICAL"]/mets:div/@TYPE)' />
+                      <div class="val-warning">
+                        <dv:xpath xpath='(//mets:structMap[@TYPE="LOGICAL"]/mets:div/@TYPE)' />
+                      </div>
                     </f:else>
                   </f:if>
                 </f:else>
@@ -35,6 +61,43 @@
         </f:else>
       </f:if>
     </div>
+
+    <div class="validation-block">
+      <h3>Filegroups</h3>
+      <f:if condition="{dv:xpath(xpath:'(//mets:fileSec/mets:fileGrp/@USE)')}">
+        <div class="val-ok">
+          <ol>
+          <f:for each="{dv:xpath(xpath:'(//mets:fileSec/mets:fileGrp/@USE)',returnArray:'TRUE')}" as="fileGrp">
+          <f:switch expression="{fileGrp}">
+            <f:case value="DEFAULT"><li class="val-ok">{fileGrp} (supported)</li></f:case>
+            <f:case value="THUMBS"><li class="val-ok">{fileGrp} (supported)</li></f:case>
+            <f:case value="MAX"><li class="val-ok">{fileGrp} (unused)</li></f:case>
+            <f:case value="DOWNLOAD"><li class="val-ok">{fileGrp} (supported)</li></f:case>
+            <f:case value="FULLTEXT"><li class="val-ok">{fileGrp} (supported)</li></f:case>
+            <f:case default="{fileGrp}"><li class="val-warning">Unknown Filegroup found: {fileGrp}</li></f:case>
+          </f:switch>
+          </f:for>
+          </ol>
+        </div>
+      </f:if>
+    </div>
+
+    <div class="validation-block">
+      <h3>Downloads</h3>
+      <f:if condition="<dv:downloadLinks type='work' /> !=''">
+        <f:then>
+          <div class="val-ok">
+            <span class="title">Work Download found</span> <dv:downloadLinks type='work' />
+          </div>
+        </f:then>
+        <f:else>
+          <div class="val-warning">
+            <span class="title">No Work download link found.</span>
+          </div>
+        </f:else>
+      </f:if>
+    </div>
+
   </div>
 </f:section>
 
