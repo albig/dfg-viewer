@@ -48,9 +48,10 @@ class XpathViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
      * @param string $xpath xpath of elements
      * @param string $type type of field requested
      * @param boolean $htmlspecialchars use htmlspecialchars() on the found result
+     * @param boolean $returnArray return results in an array instead of string
      * @return string
      */
-    public function render($xpath, $field = '', $htmlspecialchars = TRUE)
+    public function render($xpath, $field = '', $htmlspecialchars = TRUE, $returnArray = FALSE)
     {
         $doc = GeneralUtility::makeInstance(\Slub\Dfgviewer\Helpers\GetDoc::class);
 
@@ -59,19 +60,23 @@ class XpathViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
         if (is_array($result)) {
           foreach ($result as $row) {
             if ($returnArray) {
-              $output[] = htmlspecialchars(trim($row));
+              $output[] = $htmlspecialchars ? htmlspecialchars(trim($row)) : trim($row);
             } else {
-              $output .= trim($row) . ' ';
+              $output .= $htmlspecialchars ? htmlspecialchars(trim($row)) : trim($row) . ' ';
             }
           }
         } else {
-          $output = trim($result);
+          if ($returnArray) {
+            $output[] = $htmlspecialchars ? htmlspecialchars(trim($row)) : trim($row);
+          } else {
+            $output = $htmlspecialchars ? htmlspecialchars(trim($row)) : trim($row);
+          }
         }
 
-        if ($htmlspecialchars) {
-          return htmlspecialchars(trim($output));
+        if (! $returnArray) {
+            return trim($output);
         } else {
-          return trim($output);
+            return $output;
         }
     }
 }
